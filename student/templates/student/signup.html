@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% extends 'student/base.html' %}
+{% block title_block %}
+Signup
+{% endblock %}
+
+{% block body_block %}
+    <div class="container mb-5">
+        <h1 class="alert alert-danger text-center p-5">Registeration Form</h1><hr>
+        <div class="row">
+            <div class="col-sm-8">
+            <form action="" method="post" enctype="multipart/form-data" class="shadow p-5">
+                {% csrf_token %}
+                {% for fm in form %}
+                <div class="form-group mb-3">
+                    {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+                </div>
+                {% endfor %}
+                <input type="submit" value="Register" class="btn btn-primary">
+                {% for error in form.non_fields_errors %}
+                <p class="alert alert-danger my-3">{{error}}</p>
+                {% endfor %}
+            </form>
+        </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% extends 'student/base.html' %}
+
+{% block title_block %}
+Home
+{% endblock %}
+
+{% block body_block %}
+<div class="col-sm-10">
+    <div class="text-center p-5">
+    {% if messages %}
+    {% for message in messages %}
+    <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %}>{{message}}</p>
+    {% endfor %}
+    {% endif %}
+    </div>
+</div>  
+<center>
+    <h1>Welcome to Home Page</h1>
+</center>
+{% endblock %}

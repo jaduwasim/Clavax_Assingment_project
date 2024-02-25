@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% extends 'student/base.html' %}
+{% load static %}
+
+{% block title_block %}
+Profile
+{%endblock%}
+
+{% block body_block %}
+    
+    
+    <div class="container mb-5">
+        <div class="text-center shadow p-5">
+            {% if messages %}
+            {% for message in messages %}
+            <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %}>{{message}}</p>
+            {% endfor %}
+            {% endif %}
+            <h1>Welcome to Profile Page</h1><hr>
+            <h3>Hello {{request.user.first_name|capfirst}} {{request.user.last_name|capfirst}}</h3>
+            <p>Your Phone Number: {{request.user.phone}}</p>
+            <p>Class Name: {{request.user.class_name}}</p>
+            <p>Date of Birth: {{request.user.date_of_birth}}</p>
+            {% if request.user.image %}
+            <img src="{{request.user.image.url}}" class="image--cover" alt=""><hr>
+            {% else %}
+            <img src="{% static 'images/bydefaulprofile.jpg' %}" class="image--cover" alt="Missing">
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        <h1 class="alert-danger text-center p-5">Edit Your Profile</h1><hr>
+        <div class="row">
+            <div class="col-sm-8">
+            <form action="" method="post"  class="shadow p-5" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for fm in form %}
+                <div class="form-group mb-3">
+                    {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+                </div>
+                {% endfor %}
+                <input type="submit" value="Submit" class="btn btn-primary">
+                {% for error in form.non_fields_errors %}
+                <p class="alert alert-danger my-3">{{error}}</p>
+                {% endfor %}
+            </form>
+        </div>
+        </div>
+    </div>
+    
+{% endblock %}
